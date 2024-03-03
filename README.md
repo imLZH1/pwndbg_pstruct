@@ -1,11 +1,11 @@
 # pwndbg_pstruct
 
-## 适用于什么？
+## 适用于什么状况？
 
 ![图片](https://github.com/imLZH1/pwndbg_pstruct/assets/60182298/2f75f9f6-4e04-4fed-83b4-8e61c3f51ef9)
 
 
-![图片](https://github.com/imLZH1/pwndbg_pstruct/assets/60182298/393a3b20-c3ce-4b95-9ba7-5c370183a38b)
+![图片](https://github.com/imLZH1/pwndbg_pstruct/assets/60182298/9495c668-cfde-4cb0-83df-361aadc7dca8)
 
 
 
