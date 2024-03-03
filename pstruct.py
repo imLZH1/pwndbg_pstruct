@@ -100,8 +100,12 @@ class _IO_FILE_plus(ctypes.Structure):
     def __repr__(self):
         #fps = [f"\033[91m{name}\033[0m = {getattr(self, name)}" for name, _ in self._fields_]
         #return "$1 = {\n  " + ", \n  ".join(fps) + "\n}
+
+        symbol_info = pwndbg.chain.format(self.vtable)
+        #fps.append(f"\033[94m{name}\033[0m = \033[96m{hex(value)}\033[0m  <{symbol_info}\033[0m>")
+
         d  = '$1 = {'
-        d += f"\n\033[94m$_FILE\033[0m = {self._file},\n\033[94mvtable\033[0m = \033[96m{hex(self.vtable)}\033[0m\n"
+        d += f"\n\033[94m$_FILE\033[0m = {self._file},\n\033[94mvtable\033[0m = \033[96m{hex(self.vtable)}\033[0m <{symbol_info}\033[0m>\n"
         d += '}'
         return d
 
