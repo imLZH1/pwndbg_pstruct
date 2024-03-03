@@ -5,7 +5,8 @@
 ![图片](https://github.com/imLZH1/pwndbg_pstruct/assets/60182298/2f75f9f6-4e04-4fed-83b4-8e61c3f51ef9)
 
 
-![图片](https://github.com/imLZH1/pwndbg_pstruct/assets/60182298/fdfc1c30-65c4-45d0-a0c1-78f460e7524b)
+![图片](https://github.com/imLZH1/pwndbg_pstruct/assets/60182298/393a3b20-c3ce-4b95-9ba7-5c370183a38b)
+
 
 
 ## 配置
