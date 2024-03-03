@@ -1,3 +1,8 @@
+"""
+Module Name: pstruct.py
+Author: imLZH1
+Date: March 3, 2024
+"""
 from __future__ import annotations
 
 import argparse
@@ -17,6 +22,7 @@ parser = argparse.ArgumentParser(
          formatter_class=argparse.RawTextHelpFormatter,
         description="Usage: show_hex <address> <structName>",
 )
+# The parameter 'structName' may be developed in the future
 parser.add_argument(
         'addr',
         help="Address hint to be given to pstruct.",
@@ -76,7 +82,13 @@ class _IO_FILE(ctypes.Structure):
                 v = '\'\\x00\''
                 fps.append(f"\033[94m{name}\033[0m = \033[96m{v}\033[0m <fill 0x14>")
             else:
-                fps.append(f"\033[94m{name}\033[0m = \033[96m{hex(value)}\033[0m")
+                symbol_info = pwndbg.chain.format(value,1)
+                if '...' in symbol_info:
+                    symbol_info = symbol_info[:-28]
+                if(symbol_info!='0x0'):
+                    fps.append(f"\033[94m{name}\033[0m = \033[96m{hex(value)}\033[0m  <{symbol_info}\033[0m>")
+                else:
+                    fps.append(f"\033[94m{name}\033[0m = \033[96m{hex(value)}\033[0m")
         return "{\n    " + ", \n    ".join(fps) + "\n  }"
 
 
@@ -87,7 +99,7 @@ class _IO_FILE_plus(ctypes.Structure):
     ]
     def __repr__(self):
         #fps = [f"\033[91m{name}\033[0m = {getattr(self, name)}" for name, _ in self._fields_]
-        #return "$1 = {\n  " + ", \n  ".join(fps) + "\n}"
+        #return "$1 = {\n  " + ", \n  ".join(fps) + "\n}
         d  = '$1 = {'
         d += f"\n\033[94m$_FILE\033[0m = {self._file},\n\033[94mvtable\033[0m = \033[96m{hex(self.vtable)}\033[0m\n"
         d += '}'
@@ -101,12 +113,3 @@ def pstruct(addr,StructName='def_name') -> None:
     fp = _IO_FILE_plus.from_buffer_copy(data)
     print(fp)
 
-
-
-#addr = 0x12345678
-## 使用 get_symbol 获取符号表信息
-#symbol_info = pwndbg.symbol.get_symbol(addr)
-## 使用 get_symbol_name 获取符号名称
-#symbol_name = pwndbg.symbol.get_symbol_name(addr)
-## 使用 resolve 获取符号信息
-#symbol = pwndbg.symbol.resolve(addr)
