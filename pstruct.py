@@ -84,7 +84,9 @@ class _IO_FILE(ctypes.Structure):
             else:
                 symbol_info = pwndbg.chain.format(value,1)
                 if '...' in symbol_info:
-                    symbol_info = symbol_info[:-28]
+                    symbol_info = symbol_info.split(' ')
+                    symbol_info = ''.join(symbol_info[:-2])
+                    pass
                 if(symbol_info!='0x0'):
                     fps.append(f"\033[94m{name}\033[0m = \033[96m{hex(value)}\033[0m  <{symbol_info}\033[0m>")
                 else:
@@ -115,5 +117,5 @@ def pstruct(addr,StructName='def_name') -> None:
     data = pwndbg.gdblib.memory.read(addr, 0xe0, partial=True)
     data = bytes(data)
     fp = _IO_FILE_plus.from_buffer_copy(data)
+    print(f'\033[93m$addr\033[0m = \033[92m{hex(addr)}\033[0m')
     print(fp)
-
